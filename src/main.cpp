@@ -4,6 +4,7 @@
 #include <littleFS.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
+#include <ESPmDNS.h>
 
 
 
@@ -90,6 +91,14 @@ void setup() {
     delay(1000);
     Serial.println("Connecting to WiFi..");
   }
+
+  if (!MDNS.begin("esp32_Jonas")) {
+    Serial.println("Error setting up MDNS responder!");
+    while (1) {
+      delay(1000);
+    }
+  }
+  Serial.println("mDNS responder started");
 
   // Print ESP32 Local IP Address
   Serial.println(WiFi.localIP());
